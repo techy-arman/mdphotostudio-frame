@@ -15,7 +15,7 @@ const Footer = () => {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <FooterLogo>MD Photo Studio & Frame</FooterLogo>
+              <FooterLogo>MD Photo Studio <span>&</span> Frame</FooterLogo>
               <FooterAddress>
                 <AddressItem>
                   <FaMapMarkerAlt />
@@ -122,7 +122,7 @@ const Footer = () => {
 };
 
 const FooterContainer = styled.footer`
-  background-color: var(--primary-color);
+  background-color: var(--primary-dark);
   color: var(--white);
   padding: 60px 0 20px;
 `;
@@ -144,6 +144,10 @@ const FooterInfo = styled.div`
 const FooterLogo = styled.h2`
   font-size: 1.8rem;
   margin-bottom: 20px;
+  
+  span {
+    color: var(--accent-yellow);
+  }
   
   @media (max-width: 768px) {
     font-size: 1.5rem;
@@ -202,7 +206,7 @@ const SocialIcon = styled.div`
     
     &:hover {
       background-color: var(--accent-yellow);
-      color: var(--primary-color);
+      color: var(--primary-dark);
       transform: translateY(-5px);
     }
   }
@@ -212,6 +216,8 @@ const FooterMap = styled.div`
   margin-top: 40px;
   border-radius: 10px;
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 `;
 
 const Copyright = styled.div`

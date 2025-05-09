@@ -82,11 +82,11 @@ const Products = () => {
               <ProductCard>
                 <ProductImage>
                   <img src={product.image} alt={product.name} loading="lazy" />
+                  <IconWrapper>
+                    {product.icon}
+                  </IconWrapper>
                 </ProductImage>
                 <ProductInfo>
-                  <IconContainer>
-                    {product.icon}
-                  </IconContainer>
                   <ProductName>{product.name}</ProductName>
                   <ProductDescription>{product.description}</ProductDescription>
                 </ProductInfo>
@@ -100,7 +100,7 @@ const Products = () => {
 };
 
 const ProductsSection = styled.section`
-  background-color: var(--gray);
+  background-color: var(--dark-secondary);
   
   .section-title p {
     color: var(--dark-gray);
@@ -120,16 +120,22 @@ const ProductsContainer = styled.div`
 `;
 
 const ProductCard = styled.div`
-  background-color: var(--white);
+  background-color: var(--dark-light);
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   
   &:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-yellow);
+    
+    img {
+      transform: scale(1.05);
+    }
   }
 `;
 
@@ -137,6 +143,7 @@ const ProductImage = styled.div`
   width: 100%;
   height: 200px;
   overflow: hidden;
+  position: relative;
   
   img {
     width: 100%;
@@ -144,25 +151,14 @@ const ProductImage = styled.div`
     object-fit: cover;
     transition: transform 0.5s;
   }
-  
-  ${ProductCard}:hover & img {
-    transform: scale(1.05);
-  }
 `;
 
-const ProductInfo = styled.div`
-  padding: 20px;
-  text-align: center;
-  position: relative;
-`;
-
-const IconContainer = styled.div`
+const IconWrapper = styled.div`
   position: absolute;
-  top: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--primary-color);
-  color: var(--white);
+  bottom: -20px;
+  right: 20px;
+  background-color: var(--accent-yellow);
+  color: var(--primary-dark);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -170,13 +166,23 @@ const IconContainer = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  transition: transform 0.3s;
+  
+  ${ProductCard}:hover & {
+    transform: scale(1.1) rotate(10deg);
+  }
+`;
+
+const ProductInfo = styled.div`
+  padding: 30px 20px 20px;
+  text-align: center;
 `;
 
 const ProductName = styled.h3`
-  margin-top: 20px;
   font-size: 1.2rem;
-  color: var(--primary-color);
+  color: var(--white);
   margin-bottom: 10px;
 `;
 

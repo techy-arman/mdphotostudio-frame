@@ -25,6 +25,21 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const scrollToSection = (sectionId) => {
+    setIsOpen(false);
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <StyledHeader scrolled={scrolled}>
       <div className="container">
@@ -36,7 +51,7 @@ const Navbar = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                MD Photo Studio & Frame
+                MD Photo Studio <span>&</span> Frame
               </motion.h1>
             </Link>
           </Logo>
@@ -50,36 +65,23 @@ const Navbar = () => {
               <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
             </MenuItem>
             <MenuItem>
-              <Link to="/#services" onClick={() => setIsOpen(false)}>Services</Link>
+              <a href="#service" onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('service');
+              }}>Services</a>
             </MenuItem>
             <MenuItem>
-              <Link to="/#gallery" onClick={() => setIsOpen(false)}>Gallery</Link>
+              <a href="#gallery" onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('gallery');
+              }}>Gallery</a>
             </MenuItem>
             <MenuItem>
-              <Link to="/#contact" onClick={() => setIsOpen(false)}>Contact</Link>
+              <a href="#contact" onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('contact');
+              }}>Contact</a>
             </MenuItem>
-            <SocialIcons>
-              <SocialIcon>
-                <a href="https://wa.me/9779464786" target="_blank" rel="noopener noreferrer">
-                  <FaWhatsapp />
-                </a>
-              </SocialIcon>
-              <SocialIcon>
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  <FaInstagram />
-                </a>
-              </SocialIcon>
-              <SocialIcon>
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  <FaFacebook />
-                </a>
-              </SocialIcon>
-              <SocialIcon>
-                <a href="#" target="_blank" rel="noopener noreferrer">
-                  <FaYoutube />
-                </a>
-              </SocialIcon>
-            </SocialIcons>
           </Menu>
         </Nav>
       </div>
@@ -93,8 +95,8 @@ const StyledHeader = styled.header`
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: ${({ scrolled }) => (scrolled ? 'var(--primary-color)' : 'transparent')};
-  box-shadow: ${({ scrolled }) => (scrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none')};
+  background-color: ${({ scrolled }) => (scrolled ? 'var(--dark-secondary)' : 'transparent')};
+  box-shadow: ${({ scrolled }) => (scrolled ? '0 2px 10px rgba(0, 0, 0, 0.3)' : 'none')};
   transition: all 0.3s ease-in-out;
   padding: ${({ scrolled }) => (scrolled ? '10px 0' : '20px 0')};
 `;
@@ -113,6 +115,10 @@ const Logo = styled.div`
     font-size: 1.5rem;
     color: var(--white);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    
+    span {
+      color: var(--accent-yellow);
+    }
     
     @media (max-width: 768px) {
       font-size: 1.2rem;
@@ -145,13 +151,14 @@ const Menu = styled.ul`
     width: 70%;
     max-width: 300px;
     flex-direction: column;
-    background-color: var(--primary-color);
+    background-color: var(--dark-secondary);
     padding: 100px 30px 30px;
     z-index: 1;
     transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
     transition: transform 0.3s ease-in-out;
     justify-content: flex-start;
     gap: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -205,7 +212,7 @@ const SocialIcon = styled.div`
     
     &:hover {
       background-color: var(--accent-yellow);
-      color: var(--primary-color);
+      color: var(--primary-dark);
       transform: translateY(-3px);
     }
   }

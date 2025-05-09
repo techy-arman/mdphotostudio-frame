@@ -29,7 +29,7 @@ const Services = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <h2>Our Services</h2>
+          <h2 id="service">Our Services</h2>
           <p>Comprehensive photography and printing solutions</p>
         </motion.div>
         
@@ -51,30 +51,13 @@ const Services = () => {
             </motion.div>
           ))}
         </ServicesGrid>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <AdditionalServices>
-            <h3>Additional Offerings</h3>
-            <ul>
-              <li>All Mobile Accessories</li>
-              <li>Pen Drives</li>
-              <li>Hard Drives</li>
-              <li>Memory Cards</li>
-            </ul>
-          </AdditionalServices>
-        </motion.div>
       </div>
     </ServicesSection>
   );
 };
 
 const ServicesSection = styled.section`
-  background-color: var(--gray);
+  background-color: var(--dark-secondary);
   
   .section-title p {
     color: var(--dark-gray);
@@ -100,28 +83,30 @@ const ServicesGrid = styled.div`
 `;
 
 const ServiceCard = styled.div`
-  background-color: var(--white);
+  background-color: var(--dark-light);
   border-radius: 10px;
   padding: 30px 20px;
   text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   
   &:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    border-color: var(--accent-yellow);
   }
 `;
 
 const IconWrapper = styled.div`
   font-size: 2.5rem;
   margin-bottom: 20px;
-  color: var(--primary-color);
+  color: var(--accent-yellow);
   
   @media (max-width: 480px) {
     font-size: 2rem;
@@ -131,7 +116,7 @@ const IconWrapper = styled.div`
 
 const ServiceName = styled.h3`
   font-size: 1.2rem;
-  color: var(--primary-color);
+  color: var(--white);
   font-weight: 600;
   
   @media (max-width: 480px) {
@@ -140,14 +125,15 @@ const ServiceName = styled.h3`
 `;
 
 const AdditionalServices = styled.div`
-  background-color: var(--white);
+  background-color: var(--dark-light);
   border-radius: 10px;
   padding: 40px;
   text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   
   h3 {
-    color: var(--primary-color);
+    color: var(--white);
     font-size: 1.5rem;
     margin-bottom: 25px;
     position: relative;
@@ -173,11 +159,12 @@ const AdditionalServices = styled.div`
     margin-top: 30px;
     
     li {
-      background-color: var(--gray);
+      background-color: var(--dark-bg);
       padding: 10px 20px;
       border-radius: 5px;
       font-weight: 500;
-      color: var(--primary-color);
+      color: var(--text-color);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       
       @media (max-width: 480px) {
         font-size: 0.9rem;

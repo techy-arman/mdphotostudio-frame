@@ -163,6 +163,8 @@ const Gallery = () => {
 };
 
 const GallerySection = styled.section`
+  background-color: var(--dark-bg);
+  
   .section-title p {
     color: var(--dark-gray);
     font-size: 1.1rem;
@@ -178,9 +180,9 @@ const FilterContainer = styled.div`
 `;
 
 const FilterButton = styled.button`
-  background-color: ${({ active }) => active ? 'var(--primary-color)' : 'var(--white)'};
-  color: ${({ active }) => active ? 'var(--white)' : 'var(--primary-color)'};
-  border: 2px solid var(--primary-color);
+  background-color: ${({ active }) => active ? 'var(--accent-yellow)' : 'transparent'};
+  color: ${({ active }) => active ? 'var(--primary-dark)' : 'var(--text-color)'};
+  border: 2px solid var(--accent-yellow);
   padding: 8px 20px;
   border-radius: 30px;
   font-weight: 600;
@@ -189,8 +191,9 @@ const FilterButton = styled.button`
   transition: all 0.3s;
   
   &:hover {
-    background-color: var(--primary-color);
-    color: var(--white);
+    background-color: var(--accent-yellow);
+    color: var(--primary-dark);
+    transform: translateY(-3px);
   }
   
   @media (max-width: 480px) {
@@ -248,6 +251,9 @@ const GalleryImage = styled.div`
   height: 100%;
   border-radius: 10px;
   overflow: hidden;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   
   img {
     width: 100%;
@@ -257,6 +263,8 @@ const GalleryImage = styled.div`
   }
   
   &:hover {
+    border-color: var(--accent-yellow);
+    
     img {
       transform: scale(1.05);
     }
@@ -273,7 +281,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(44, 44, 84, 0.7);
+  background: rgba(26, 26, 46, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -286,7 +294,7 @@ const Overlay = styled.div`
     span {
       display: inline-block;
       background-color: var(--accent-yellow);
-      color: var(--primary-color);
+      color: var(--primary-dark);
       padding: 5px 15px;
       border-radius: 20px;
       font-weight: 600;
@@ -302,13 +310,13 @@ const Modal = styled(motion.div)`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1100;
   padding: 20px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px);
   
   .modal-content {
     position: relative;
@@ -320,7 +328,7 @@ const Modal = styled(motion.div)`
       max-height: 90vh;
       display: block;
       border-radius: 5px;
-      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
     }
   }
 `;
@@ -335,6 +343,12 @@ const CloseButton = styled.button`
   font-size: 2rem;
   cursor: pointer;
   outline: none;
+  transition: all 0.3s;
+  
+  &:hover {
+    color: var(--accent-yellow);
+    transform: scale(1.1);
+  }
 `;
 
 export default Gallery; 

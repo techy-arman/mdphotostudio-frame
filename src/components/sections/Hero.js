@@ -1,14 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { FaWhatsapp } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaWhatsapp, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// Hero background image (replace with actual hero image URL)
-const heroImage = 'https://images.unsplash.com/photo-1533616688419-b7a585564566?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80';
+// Hero carousel images (replace with actual hero images)
+const carouselImages = [
+  'https://images.unsplash.com/photo-1533616688419-b7a585564566?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80',
+  'https://images.unsplash.com/photo-1519741347686-c1e331c20a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+  'https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+  'https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+];
 
 const Hero = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+  
+  const nextImage = () => {
+    setCurrentImage((prev) => (prev === carouselImages.length - 1 ? 0 : prev + 1));
+  };
+  
+  const prevImage = () => {
+    setCurrentImage((prev) => (prev === 0 ? carouselImages.length - 1 : prev - 1));
+  };
+  
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextImage();
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <HeroContainer>
+      <HeroCarousel>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentImage}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            className="carousel-image"
+            style={{ backgroundImage: `url(${carouselImages[currentImage]})` }}
+          />
+        </AnimatePresence>
+        
+        <CarouselButton className="left" onClick={prevImage}>
+          <FaChevronLeft />
+        </CarouselButton>
+        
+        <CarouselButton className="right" onClick={nextImage}>
+          <FaChevronRight />
+        </CarouselButton>
+        
+        <CarouselIndicators>
+          {carouselImages.map((_, index) => (
+            <CarouselDot 
+              key={index} 
+              active={index === currentImage}
+              onClick={() => setCurrentImage(index)}
+            />
+          ))}
+        </CarouselIndicators>
+      </HeroCarousel>
+      
       <HeroOverlay>
         <div className="container">
           <HeroContent>
@@ -44,27 +100,6 @@ const Hero = () => {
                 <HighlightItem>📺 Live Streaming</HighlightItem>
               </HighlightServices>
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 1.4 }}
-            >
-              <FastService>
-                ✅ Passport Size Photo in Just 5 Minutes
-              </FastService>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.8 }}
-            >
-              <WhatsAppButton href="https://wa.me/9779464786" target="_blank" rel="noopener noreferrer">
-                <FaWhatsapp />
-                <span>Chat on WhatsApp</span>
-              </WhatsAppButton>
-            </motion.div>
           </HeroContent>
         </div>
       </HeroOverlay>
@@ -76,11 +111,95 @@ const HeroContainer = styled.section`
   height: 100vh;
   min-height: 650px;
   width: 100%;
-  background-image: url(${heroImage});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   position: relative;
+  overflow: hidden;
+`;
+
+const HeroCarousel = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  .carousel-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+`;
+
+const CarouselButton = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 10;
+  
+  &:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  &.left {
+    left: 20px;
+  }
+  
+  &.right {
+    right: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 36px;
+    
+    &.left {
+      left: 10px;
+    }
+    
+    &.right {
+      right: 10px;
+    }
+  }
+`;
+
+const CarouselIndicators = styled.div`
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+`;
+
+const CarouselDot = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: ${props => props.active ? 'var(--accent-yellow)' : 'rgba(255, 255, 255, 0.5)'};
+  cursor: pointer;
+  transition: all 0.3s;
+  
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const HeroOverlay = styled.div`
@@ -89,10 +208,11 @@ const HeroOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(44, 44, 84, 0.8), rgba(44, 44, 84, 0.95));
+  background: linear-gradient(to bottom, rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.95));
   display: flex;
   align-items: center;
   text-align: center;
+  z-index: 5;
 `;
 
 const HeroContent = styled.div`
