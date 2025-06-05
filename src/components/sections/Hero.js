@@ -6,7 +6,7 @@ import { FaWhatsapp, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 // Hero carousel images (replace with actual hero images)
 const carouselImages = [
   'https://www.studiomemorylane.com/wp-content/uploads/2019/06/Ethnic-Punjabi-wedding-couple-photography.jpg',
-  './media/images/img2.jpg',
+  'https://www.seasons5.com.au/wp-content/uploads/2023/07/Traditions-Punjabi-Wedding.jpg',
   './media/images/img1.jpg',
   './media/images/img6.jpg'
 ];
