@@ -5,20 +5,26 @@ import { FaWhatsapp, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 // Hero carousel images (replace with actual hero images)
 const carouselImages = [
-  'https://images.unsplash.com/photo-1533616688419-b7a585564566?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80',
-  'https://images.unsplash.com/photo-1519741347686-c1e331c20a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-  'https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-  'https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+  'https://www.studiomemorylane.com/wp-content/uploads/2019/06/Ethnic-Punjabi-wedding-couple-photography.jpg',
+  './media/images/img2.jpg',
+  './media/images/img1.jpg',
+  './media/images/img6.jpg'
 ];
+
 
 const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   
   const nextImage = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
     setCurrentImage((prev) => (prev === carouselImages.length - 1 ? 0 : prev + 1));
   };
   
   const prevImage = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
     setCurrentImage((prev) => (prev === 0 ? carouselImages.length - 1 : prev - 1));
   };
   
@@ -31,79 +37,103 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Preload images for smoother transitions
+  useEffect(() => {
+    carouselImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   return (
-    <HeroContainer>
-      <HeroCarousel>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentImage}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="carousel-image"
-            style={{ backgroundImage: `url(${carouselImages[currentImage]})` }}
-          />
-        </AnimatePresence>
-        
-        <CarouselButton className="left" onClick={prevImage}>
-          <FaChevronLeft />
-        </CarouselButton>
-        
-        <CarouselButton className="right" onClick={nextImage}>
-          <FaChevronRight />
-        </CarouselButton>
-        
-        <CarouselIndicators>
-          {carouselImages.map((_, index) => (
-            <CarouselDot 
-              key={index} 
-              active={index === currentImage}
-              onClick={() => setCurrentImage(index)}
-            />
-          ))}
-        </CarouselIndicators>
-      </HeroCarousel>
-      
-      <HeroOverlay>
-        <div className="container">
-          <HeroContent>
+    <>
+      <HeroContainer>
+        <HeroCarousel>
+          <AnimatePresence 
+            initial={false}
+            mode="sync"
+            onExitComplete={() => setIsAnimating(false)}
+          >
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <StudioName>
-                MD Photo Studio <span>&</span> Frame
-              </StudioName>
-            </motion.div>
-            
-            <motion.div
+              key={currentImage}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              animate={{ 
+                opacity: 1,
+                transition: { duration: 0.8, ease: "easeInOut" }
+              }}
+              exit={{ 
+                opacity: 0,
+                transition: { duration: 0.8, ease: "easeInOut" }
+              }}
+              className="carousel-image"
             >
-              <TagLine>
-                Capturing Moments, Creating Memories
-              </TagLine>
+              <CarouselImageInner style={{ backgroundImage: `url(${carouselImages[currentImage]})` }} />
             </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1 }}
-            >
-              <HighlightServices>
-                <HighlightItem>👰 Wedding Photography</HighlightItem>
-                <HighlightItem>💫 Pre-Wedding Shoots</HighlightItem>
-                <HighlightItem>🎬 Wedding Videography</HighlightItem>
-                <HighlightItem>📺 Live Streaming</HighlightItem>
-              </HighlightServices>
-            </motion.div>
-          </HeroContent>
-        </div>
-      </HeroOverlay>
-    </HeroContainer>
+          </AnimatePresence>
+          
+          <CarouselButton className="left" onClick={prevImage} disabled={isAnimating}>
+            <FaChevronLeft />
+          </CarouselButton>
+          
+          <CarouselButton className="right" onClick={nextImage} disabled={isAnimating}>
+            <FaChevronRight />
+          </CarouselButton>
+          
+          <CarouselIndicators>
+            {carouselImages.map((_, index) => (
+              <CarouselDot 
+                key={index} 
+                active={index === currentImage}
+                onClick={() => {
+                  if (isAnimating || index === currentImage) return;
+                  setIsAnimating(true);
+                  setCurrentImage(index);
+                }}
+              />
+            ))}
+          </CarouselIndicators>
+        </HeroCarousel>
+        
+        <HeroOverlay>
+          <div className="container">
+            <HeroContent>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <StudioName>
+                  MD Photo Studio <span>&</span> Frame
+                </StudioName>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                <TagLine>
+                  Capturing Moments, Creating Memories
+                </TagLine>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1 }}
+              >
+                <HighlightServices>
+                  <HighlightItem aria-label="Wedding Photography Services">👰 Wedding Photography</HighlightItem>
+                  <HighlightItem aria-label="Pre-Wedding Photography Shoots">💫 Pre-Wedding Shoots</HighlightItem>
+                  <HighlightItem aria-label="Wedding Videography Services">🎬 Wedding Videography</HighlightItem>
+                  <HighlightItem aria-label="Live Streaming Services">📺 Live Streaming</HighlightItem>
+                </HighlightServices>
+              </motion.div>
+            </HeroContent>
+          </div>
+        </HeroOverlay>
+      </HeroContainer>
+    </>
   );
 };
 
@@ -128,10 +158,16 @@ const HeroCarousel = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
   }
+`;
+
+const CarouselImageInner = styled.div`
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  will-change: transform; /* Hardware acceleration hint */
 `;
 
 const CarouselButton = styled.button`
@@ -155,6 +191,11 @@ const CarouselButton = styled.button`
   &:hover {
     opacity: 1;
     transform: translateY(-50%) scale(1.1);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
   
   &.left {
@@ -193,7 +234,7 @@ const CarouselDot = styled.div`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: ${props => props.active ? 'var(--accent-yellow)' : 'rgba(255, 255, 255, 0.5)'};
+  background-color: ${props => props.active ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.5)'};
   cursor: pointer;
   transition: all 0.3s;
   
@@ -208,7 +249,7 @@ const HeroOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.95));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
   display: flex;
   align-items: center;
   text-align: center;
@@ -227,9 +268,11 @@ const StudioName = styled.h1`
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 15px;
+  color: var(--white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   
   span {
-    color: var(--accent-yellow);
+    color: var(--primary-color);
   }
   
   @media (max-width: 768px) {
@@ -245,7 +288,9 @@ const TagLine = styled.h2`
   font-size: 1.6rem;
   font-weight: 400;
   margin-bottom: 30px;
-  opacity: 0.9;
+  color: var(--white);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  opacity: 0.95;
   
   @media (max-width: 768px) {
     font-size: 1.3rem;
@@ -261,12 +306,13 @@ const HighlightServices = styled.div`
 `;
 
 const HighlightItem = styled.div`
-  background-color: rgba(255, 211, 42, 0.15);
-  border: 1px solid var(--accent-yellow);
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--primary-color);
   color: var(--white);
   padding: 8px 16px;
   border-radius: 30px;
   font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   
   @media (max-width: 480px) {
     font-size: 0.9rem;
@@ -315,6 +361,20 @@ const WhatsAppButton = styled.a`
   @media (max-width: 480px) {
     padding: 10px 20px;
     font-size: 0.9rem;
+  }
+`;
+
+const ServiceDescription = styled.p`
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 80%;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+  display: none;
+  
+  @media (min-width: 768px) {
+    display: block;
   }
 `;
 

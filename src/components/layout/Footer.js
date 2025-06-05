@@ -122,7 +122,7 @@ const Footer = () => {
 };
 
 const FooterContainer = styled.footer`
-  background-color: var(--primary-dark);
+  background-color: #b5554d;
   color: var(--white);
   padding: 60px 0 20px;
 `;
@@ -139,14 +139,16 @@ const FooterContent = styled.div`
 
 const FooterInfo = styled.div`
   line-height: 1.6;
+  color: var(--white);
 `;
 
 const FooterLogo = styled.h2`
   font-size: 1.8rem;
   margin-bottom: 20px;
+  color: var(--white);
   
   span {
-    color: var(--accent-yellow);
+    color: var(--primary-color);
   }
   
   @media (max-width: 768px) {
@@ -164,17 +166,23 @@ const AddressItem = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  color: var(--white);
   
   svg {
     margin-top: 4px;
-    color: var(--accent-yellow);
+    color: var(--primary-color);
+  }
+  
+  p {
+    color: var(--white);
   }
   
   a {
+    color: var(--white);
     transition: color 0.3s;
     
     &:hover {
-      color: var(--accent-yellow);
+      color: var(--primary-color);
     }
   }
 `;
@@ -183,6 +191,7 @@ const FooterSocial = styled.div`
   h3 {
     font-size: 1.4rem;
     margin-bottom: 20px;
+    color: var(--white);
   }
 `;
 
@@ -199,14 +208,14 @@ const SocialIcon = styled.div`
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.2);
     color: var(--white);
     font-size: 1.2rem;
     transition: all 0.3s;
     
     &:hover {
-      background-color: var(--accent-yellow);
-      color: var(--primary-dark);
+      background-color: var(--primary-color);
+      color: #b5554d;
       transform: translateY(-5px);
     }
   }
@@ -217,7 +226,7 @@ const FooterMap = styled.div`
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 `;
 
 const Copyright = styled.div`
@@ -226,7 +235,7 @@ const Copyright = styled.div`
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--white);
 `;
 
 export default Footer; 

@@ -7,49 +7,49 @@ const galleryImages = [
   {
     id: 1,
     category: 'wedding',
-    url: 'https://images.unsplash.com/photo-1519741347686-c1e331c20a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: 'https://image.wedmegood.com/resized/800X/uploads/images/ef136c9feffe407488f18f5d46dfcac3realwedding/0B1A9063.jpg',
     alt: 'Wedding photo shoot'
   },
   {
     id: 2,
     category: 'pre-wedding',
-    url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+    url: 'https://wallpapercave.com/wp/wp8057563.jpg',
     alt: 'Pre-wedding photo shoot'
   },
   {
     id: 3,
     category: 'wedding',
-    url: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: 'https://static.toiimg.com/thumb/resizemode-4,width-1280,height-720,msid-92783752/92783752.jpg',
     alt: 'Wedding ceremony'
   },
   {
     id: 4,
     category: 'pre-wedding',
-    url: 'https://images.unsplash.com/photo-1509927083803-4bd519298ac4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: './media/images/img3.jpg',
     alt: 'Pre-wedding couple shoot'
   },
   {
     id: 5,
     category: 'wedding',
-    url: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: 'https://media-api.xogrp.com/images/f4570601-a1e6-4802-86fb-ad9e988066fe~rs_768.h',
     alt: 'Wedding photo'
   },
   {
     id: 6,
     category: 'candid',
-    url: 'https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: 'https://5.imimg.com/data5/SELLER/Default/2022/3/FK/RE/HL/3320722/culture-5897051-1920-500x500.jpg',
     alt: 'Candid wedding shot'
   },
   {
     id: 7,
     category: 'candid',
-    url: 'https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    url: 'https://3.bp.blogspot.com/-Si6613CQRac/WFA-74zUJCI/AAAAAAAAC30/uXD62hG0HJYwcVBKGWp4jq5deIuMZt2VgCLcB/s1600/Beautiful%2BIndian%2BPunjabi%2BGirls%2BWedding%2BWallpaper%2B%252814%2529.jpg',
     alt: 'Candid moment'
   },
   {
     id: 8,
     category: 'pre-wedding',
-    url: 'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80',
+    url: 'https://i.ytimg.com/vi/-j7pOPYD9Vs/maxresdefault.jpg',
     alt: 'Engagement photo'
   }
 ];
@@ -180,7 +180,7 @@ const FilterContainer = styled.div`
 `;
 
 const FilterButton = styled.button`
-  background-color: ${({ active }) => active ? 'var(--accent-yellow)' : 'transparent'};
+  background-color: ${({ active }) => active ? '#000' : 'transparent'};
   color: ${({ active }) => active ? 'var(--primary-dark)' : 'var(--text-color)'};
   border: 2px solid var(--accent-yellow);
   padding: 8px 20px;
@@ -191,8 +191,6 @@ const FilterButton = styled.button`
   transition: all 0.3s;
   
   &:hover {
-    background-color: var(--accent-yellow);
-    color: var(--primary-dark);
     transform: translateY(-3px);
   }
   

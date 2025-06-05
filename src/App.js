@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaWhatsapp, FaPhone } from 'react-icons/fa';
+import { FaPhone } from 'react-icons/fa';
 
 // Layout Components
 import Navbar from './components/layout/Navbar';
@@ -11,6 +11,19 @@ import Footer from './components/layout/Footer';
 import Home from './components/pages/Home';
 
 function App() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  // Simple animation that repeats
+  const shakeAnimation = {
+    rotate: [0, -10, 10, -10, 0],
+    transition: {
+      duration: 0.5,
+      repeat: Infinity,
+      repeatType: "loop",
+      repeatDelay: 2.5
+    }
+  };
+
   return (
     <Router>
       <div className="app">
@@ -20,38 +33,37 @@ function App() {
         </Routes>
         <Footer />
         
-        {/* Floating Action Buttons */}
-        <div className="floating-actions-container">
-          {/* WhatsApp Button - Left Side */}
-          <motion.a
-            href="https://wa.me/9779464786"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="floating-btn whatsapp left"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            style={{ left: '30px', right: 'auto' }}
-          >
-            <FaWhatsapp />
-          </motion.a>
-          
-          {/* Phone Button - Right Side */}
+        {/* Floating Phone Button */}
+        {isVisible && (
           <motion.a
             href="tel:9779464786"
-            className="floating-btn phone right"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            style={{ right: '30px', left: 'auto' }}
+            className="floating-phone"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ 
+              scale: 1, 
+              opacity: 1,
+              rotate: [0, -10, 10, -10, 0]
+            }}
+            transition={{ 
+              type: "spring",
+              stiffness: 300,
+              damping: 15,
+              rotate: {
+                duration: 0.5,
+                repeat: Infinity,
+                repeatType: "loop",
+                repeatDelay: 2.5
+              }
+            }}
+            whileHover={{ 
+              scale: 1.2,
+              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.3)"
+            }}
+            whileTap={{ scale: 0.9 }}
           >
             <FaPhone />
           </motion.a>
-        </div>
+        )}
       </div>
     </Router>
   );

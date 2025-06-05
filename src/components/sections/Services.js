@@ -94,12 +94,13 @@ const ServiceCard = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
   
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     border-color: var(--accent-yellow);
+    border: 1px solid  #b5554d;
   }
 `;
 
@@ -116,7 +117,7 @@ const IconWrapper = styled.div`
 
 const ServiceName = styled.h3`
   font-size: 1.2rem;
-  color: var(--white);
+  color:  #b5554d;
   font-weight: 600;
   
   @media (max-width: 480px) {

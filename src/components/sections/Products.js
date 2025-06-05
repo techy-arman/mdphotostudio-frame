@@ -9,56 +9,56 @@ const products = [
     name: 'Mug Printing',
     description: 'Custom photo mugs for gifts and memories',
     icon: <FaMugHot />,
-    image: 'https://images.unsplash.com/photo-1506784242126-2a0b2bc9a14c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8bXVnJTIwcHJpbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+    image: 'https://tse3.mm.bing.net/th?id=OIP.ThhC5RKg6s8BUBQq91sNCQHaDr&pid=Api&P=0&h=180',
   },
   {
     id: 2,
     name: 'T-Shirt Printing',
     description: 'Personalized T-shirts with your favorite photos',
     icon: <FaTshirt />,
-    image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dHNoaXJ0JTIwcHJpbnRpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+    image: 'https://tse2.mm.bing.net/th?id=OIP.toIrKugzJKghuuC7il0RsAHaEK&pid=Api&P=0&h=180',
   },
   {
     id: 3,
     name: 'Pillow Printing',
     description: 'Custom photo pillows for your home decor',
     icon: <FaBed />,
-    image: 'https://images.unsplash.com/photo-1591105327764-4c4b76f9e6a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHBpbGxvd3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+    image: 'https://tse4.mm.bing.net/th?id=OIP.pKMBoMPiSur371hAdP5acQHaEJ&pid=Api&P=0&h=180',
   },
   {
     id: 4,
     name: 'Mobile Accessories',
     description: 'Wide range of mobile accessories',
     icon: <FaMobile />,
-    image: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bW9iaWxlJTIwYWNjZXNzb3JpZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+    image: 'https://tse1.mm.bing.net/th?id=OIP.ENnNCrmZJkRBYJWdJy1XogHaEf&pid=Api&P=0&h=180',
   },
   {
     id: 5,
     name: 'Memory Cards',
     description: 'High-quality memory cards for your devices',
     icon: <FaSdCard />,
-    image: 'https://images.unsplash.com/photo-1614851099175-e5b30eb6f696?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1lbW9yeSUyMGNhcmR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+    image: 'https://tse1.mm.bing.net/th?id=OIP.T8oXh3nh5sjcivgG3f41KwHaEd&pid=Api&P=0&h=180',
   },
   {
     id: 6,
     name: 'Hard Drives',
     description: 'Reliable hard drives for data storage',
     icon: <FaHdd />,
-    image: 'https://images.unsplash.com/photo-1617471346061-5d329ab9c574?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8aGFyZCUyMGRyaXZlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    image: 'https://tse3.mm.bing.net/th?id=OIP.z-DITbRfDHcTVSqQzHMDQAHaE5&pid=Api&P=0&h=180',
   },
   {
     id: 7,
     name: 'Pen Drives',
     description: 'Variety of pen drives for your storage needs',
     icon: <FaMemory />,
-    image: 'https://images.unsplash.com/photo-1588186939549-c087e0796efd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8dXNiJTIwZHJpdmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60',
+    image: 'https://tse1.mm.bing.net/th?id=OIP.RpAsq6EaSTUVxcQ-HKUjewHaGV&pid=Api&P=0&h=180',
   }
 ];
 
 const Products = () => {
   return (
     <ProductsSection>
-      <div className="container">
+      <div className="container pt-12">
         <motion.div
           className="section-title"
           initial={{ opacity: 0, y: 30 }}
@@ -112,7 +112,7 @@ const ProductsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 30px;
-  
+  padding: 0px 0px 80px 0px;
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
@@ -126,12 +126,13 @@ const ProductCard = styled.div`
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   height: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
   
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     border-color: var(--accent-yellow);
+    border: 1px solid  #b5554d;
     
     img {
       transform: scale(1.05);
@@ -182,7 +183,7 @@ const ProductInfo = styled.div`
 
 const ProductName = styled.h3`
   font-size: 1.2rem;
-  color: var(--white);
+  color: #b5554d;
   margin-bottom: 10px;
 `;
 

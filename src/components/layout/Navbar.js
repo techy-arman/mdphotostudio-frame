@@ -44,7 +44,7 @@ const Navbar = () => {
     <StyledHeader scrolled={scrolled}>
       <div className="container">
         <Nav>
-          <Logo>
+          <Logo scrolled={scrolled}>
             <Link to="/">
               <motion.h1 
                 initial={{ opacity: 0 }}
@@ -56,27 +56,27 @@ const Navbar = () => {
             </Link>
           </Logo>
 
-          <MenuToggle onClick={toggleMenu}>
+          <MenuToggle scrolled={scrolled} onClick={toggleMenu}>
             {isOpen ? <FaTimes /> : <FaBars />}
           </MenuToggle>
 
           <Menu isOpen={isOpen}>
-            <MenuItem>
+            <MenuItem scrolled={scrolled}>
               <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
             </MenuItem>
-            <MenuItem>
+            <MenuItem scrolled={scrolled}>
               <a href="#service" onClick={(e) => {
                 e.preventDefault();
                 scrollToSection('service');
               }}>Services</a>
             </MenuItem>
-            <MenuItem>
+            <MenuItem scrolled={scrolled}>
               <a href="#gallery" onClick={(e) => {
                 e.preventDefault();
                 scrollToSection('gallery');
               }}>Gallery</a>
             </MenuItem>
-            <MenuItem>
+            <MenuItem scrolled={scrolled}>
               <a href="#contact" onClick={(e) => {
                 e.preventDefault();
                 scrollToSection('contact');
@@ -95,8 +95,8 @@ const StyledHeader = styled.header`
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: ${({ scrolled }) => (scrolled ? 'var(--dark-secondary)' : 'transparent')};
-  box-shadow: ${({ scrolled }) => (scrolled ? '0 2px 10px rgba(0, 0, 0, 0.3)' : 'none')};
+  background-color: ${({ scrolled }) => (scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent')};
+  box-shadow: ${({ scrolled }) => (scrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none')};
   transition: all 0.3s ease-in-out;
   padding: ${({ scrolled }) => (scrolled ? '10px 0' : '20px 0')};
 `;
@@ -113,11 +113,11 @@ const Logo = styled.div`
   
   h1 {
     font-size: 1.5rem;
-    color: var(--white);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    color: ${({ scrolled }) => (scrolled ? '#b5554d' : 'var(--white)')};
+    text-shadow: ${({ scrolled }) => (scrolled ? 'none' : '2px 2px 4px rgba(0, 0, 0, 0.5)')};
     
     span {
-      color: var(--accent-yellow);
+      color: ${({ scrolled }) => (scrolled ? 'var(--primary-color)' : 'var(--primary-color)')};
     }
     
     @media (max-width: 768px) {
@@ -134,7 +134,13 @@ const MenuToggle = styled.div`
     display: block;
     cursor: pointer;
     font-size: 1.5rem;
-    color: var(--white);
+    color: ${({ scrolled }) => (scrolled ? '#b5554d' : 'var(--white)')};
+    
+    /* Ensure toggle is visible on light background when scrolled */
+    svg {
+      color: ${({ scrolled }) => (scrolled ? '#b5554d' : 'var(--white)')};
+      filter: ${({ scrolled }) => (scrolled ? 'none' : 'drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5))')};
+    }
   }
 `;
 
@@ -151,24 +157,25 @@ const Menu = styled.ul`
     width: 70%;
     max-width: 300px;
     flex-direction: column;
-    background-color: var(--dark-secondary);
+    background-color: var(--light-blush);
     padding: 100px 30px 30px;
     z-index: 1;
     transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
     transition: transform 0.3s ease-in-out;
     justify-content: flex-start;
     gap: 20px;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
   }
 `;
 
 const MenuItem = styled.li`
   a {
-    color: var(--white);
+    color: ${({ scrolled }) => (scrolled ? '#b5554d' : '#fff')};
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     position: relative;
     padding: 5px 0;
+    text-shadow: ${({ scrolled }) => (scrolled ? 'none' : '1px 1px 2px rgba(0, 0, 0, 0.5)')};
     
     &::after {
       content: '';
@@ -177,12 +184,17 @@ const MenuItem = styled.li`
       left: 0;
       width: 0;
       height: 2px;
-      background-color: var(--accent-yellow);
+      background-color: ${({ scrolled }) => (scrolled ? '#b5554d' : 'var(--primary-color)')};
       transition: width 0.3s;
     }
     
     &:hover::after {
       width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      color: #b5554d;
+      text-shadow: none;
     }
   }
 `;
